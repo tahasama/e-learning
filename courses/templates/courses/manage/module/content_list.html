@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+{% load course %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Module {{ module.title }}
+{% endblock %}
+
+{% block content %}
+
+
+<section class="bg-light py-5">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                {% with course=module.course %}
+                <h3>Course:"{{ course.title }}"</h3>
+                <div>
+                    <h4>Modules:</h4>
+                    <ul>
+                        {% for m in course.modules.all %}
+                        <li>
+                            <a href="{% url "module_content_list" m.id %}">
+                                <b><u>{{ m.title }}</u></b>
+                            </a>
+                        </li>
+                        {% empty %}
+                        <li>No modules yet.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <p><a href="{% url "course_module_update" course.id %}" class="text-decoration-none">
+                        <button type="button" class="btn btn-secondary">Edit modules</button>
+                </a></p>
+                <br>
+                <i><h4>Add new content to "{{ module.title }}" :</h4></i>
+                <ul>
+                    <a href="{% url "module_content_create" module.id "text" %}" class="text-decoration-none">
+                        <button type="button" class="btn btn-warning">Text </button>
+                    </a>
+                    <a href="{% url "module_content_create" module.id "image" %}" class="text-decoration-none">
+                        <button type="button" class="btn btn-success">image</button>
+                    </a>
+                    <a href="{% url "module_content_create" module.id "video" %}" class="text-decoration-none">
+                        <button type="button" class="btn btn-info">video</button>
+                    </a>
+                    <a href="{% url "module_content_create" module.id "file" %}" class="text-decoration-none">
+                        <button type="button" class="btn btn-primary">file </button>
+                    </a>
+                </ul>
+            </div>
+            <div class="card col-sm-8 bg-dark text-white">
+                <h3>Module: "{{ module.title }}"</h3>
+                <h4>Module contents:</h4>
+                <div>
+                    <hr>
+                    {% for content in module.contents.all %}
+                   
+                    <div class="container">
+                        <h3><b>{{ content.item }}</b> <i>({{ content.item|model_name }})</i></h3>
+
+
+
+
+     
+                        
+
+                        <a href="{% url "module_content_update" module.id content.item|model_name content.item.id %}" class="text-decoration-none">
+                            <span class="glyphicon glyphicon-pencil text-light "> </span>
+                            <button type="button" class="btn btn-info"> Edit ?</button>
+                        </a>
+
+
+
+                        
+                    <br>
+                    
+                        <form action="{% url "module_content_delete" content.id %}" method="post">
+                            {% csrf_token %}           
+                               
+                      <span class="glyphicon glyphicon-trash text-light"> </span>     
+                      <input type="submit" value="Delete?" class="bg-danger" >
+                     
+                                                        
+                        </form>
+                    
+                    </div>
+                    <hr>
+                    {% empty %}
+                    <p>This module has no contents yet.</p>
+                    {% endfor %}
+            </div>
+        </div>
+    </div> 
+</div>
+</section>
+{% endwith %}
+{% endblock %}

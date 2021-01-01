@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Edit "{{ course.title }}"
+{% endblock %}
+{% block content %}
+
+
+
+<section id="login" class="bg-light py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h4>Edit "{{ course.title }}"</h4>
+                    </div>
+                    <div class="card-body">
+                        <h2>Course modules</h2>
+                        <form method="post">
+                            {% csrf_token %}
+                            <b>{{ formset|crispy }}</b>
+                            {{ formset.management_form }}
+                          
+                           
+                            <div class="d-grid gap-2">
+                                <input type="submit" value="Save modules" class="btn btn-success">
+                            </div>                            
+                        </form>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

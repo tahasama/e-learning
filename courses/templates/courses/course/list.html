@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {% if subject %}
+        {{ subject.title }} courses
+    {% else %}
+        All courses
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+<section class="bg-light py-5">
+
+    <div class="container jumbotron">
+        <div class="row">
+        <div class="col-sm-3 mx-auto bg-dark text-white">
+       
+        <div class="container mt-auto">
+            <u><h3>Subjects:</h3></u>
+            <ul>
+                
+                    <h4><li><a href="{% url "course_list" %}" class="text-danger"><b> All</b></li></a></h4>
+                
+                {% for s in subjects %}
+                <p>
+                    <h4><a href="{% url "course_list_subject" s.slug %}" class="text-danger">
+                        <li><b>{{ s.title }}</b>
+                    .</a>
+            
+                        {{ s.total_courses }} course{{ s.total_courses|pluralize }}
+                    
+                    <br>  
+                </li>      
+                </p>
+                {% endfor %}
+            
+            </ul>
+            <!-- <a href="{% url "student_course_list" %}" class="text-decoration-none">
+                
+                  <button type="button" class="btn btn-warning">go to my enrolled courses?</button>
+                </a> -->
+        </div>
+        </div>
+        <br>
+      
+        <div class="col-sm-9 jumbotron ">
+            <h2>
+                {% if subject %}
+                {{ subject.title }} courses :
+                {% else %}
+                All courses :
+                {% endif %}
+            </h2>
+            <hr>
+            <div>
+                {% for course in courses %}
+                <h3>
+                    <a href="{% url "course_detail" course.slug %}" class="text-secondary">
+                      <i><u>{{ course.title }}</u></i>  
+                    </a>
+                </h3>
+                <p>
+                    <h4><a href="{% url "course_list_subject" course.subject.slug %}">{{course.subject}}</a>.
+                      
+                            {{ course.total_modules }} module{{ course.total_modules|pluralize }}.
+                       
+                   <i> Instructor: {{ course.owner.username }}</i></h4>
+                </p>
+                <a href="{% url "course_detail" course.slug %}" class="text-primary"><h4>See details</h4></a>
+                {%for x in user.courses_joined.all%}
+                            {% if course.title == x.title %}
+                             <h5><div class="alert alert-info text-center" role="alert">
+                                You have already enrolled this course !!
+                            </div></h5>  <!-- <h4>  you have already enrolled this course !</h4>-->
+                            <a href="{% url "student_course_list" %}" class="text-decoration-none"> 
+                                <div class="d-grid gap-2">
+                                <button type="button" class="btn btn-info">go to courses?</button>
+                                </div>
+                              </a>
+                            <!-- <a href="{% url "student_course_list" %}">
+                                go to course ?</a> -->
+                            {%endif%}
+                        {%endfor%}
+                <hr>
+                {%empty%}
+               <h4><i> there are no modules yet.</i></h4>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+</section>
+<nav class="navbar " >     
+    <div class="container-fluid">
+ 
+
+     <h4 style="float:left;"> e-mail : serertei@gmail.com </h4>
+
+<a class="nav-item text-decoration-none" href="{% url 'course_feed' %}">
+    <h4 class="text-dark">Sitemap</h4></button>
+</a>
+<a class="nav-item text-decoration-none" href="{% url 'django.contrib.sitemaps.views.sitemap' %}">
+    <h4 class="text-dark">RSS feed</h4></button>
+</a>
+
+<h4 style="float:right;"> Copyright &copy; E-learnow </h4>
+
+</div>
+
+
+</nav>
+{% endblock %}

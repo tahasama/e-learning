@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+<!-- {% load cache %} -->
+
+{% block title %}
+{{ object.title }}
+{% endblock %}
+
+{% block content %}
+
+        
+        <div class="col-xs-0 col-sm-0 col-md-0 col-lg-2 padding-0 ">
+            <div class="ex1" >
+                <h3 class="text-secondary" >Modules</h3>
+                <ul>
+                    {% for m in object.modules.all %}
+                    <li>
+                        <a href="{% url "student_course_detail_module" object.id m.id %}">
+                            <span>
+                               <b>Module: </b> 
+                            </span>
+                           <u><b><i>{{ m.title }}</i></b> </u>
+                        </a>
+                    </li>
+                    {% empty %}
+                    <li>No modules yet.</li>
+                    {% endfor %}
+                </ul>
+              </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-9 col-lg-6 jumbotron">
+            <div>
+                
+                <!-- {% cache 600 module_contents module %} -->
+                {% for content in module.contents.all %}
+                <h2>{{ content.item.title }}</h2>
+                {{ content.item.render }}
+                {% empty %}
+                <i>
+                    <h5>choose a module from the list on the left, some modules may not have contents yet</h5>
+                </i>
+                {% endfor %}
+                <!-- {% endcache %} -->
+            </div>
+        </div>
+        <div  class="col-xs-0 col-sm-4 col-md-3 col-lg-2 padding-0">
+            <!-- <div id="chat"></div>
+            <div id="chat-input">
+                <div class="d-grid gap-2">
+                    <input id="chat-message-input" type="text">
+                </div>
+                <div class="d-grid gap-2"></div>
+                    <input id="chat-message-submit" type="submit" value="Send">
+                </div> -->
+                <!-- try with javascript
+                <button class="open-button" onclick="openForm()">Chat</button>
+                <div id="chat"></div>
+                <div id="chat-input">
+                <div class="chat-popup" id="myForm">
+                    <form action="" class="form-container">
+                      <h1>Chat</h1>
+                  
+                      <label for="msg"><b>Message</b></label>
+                      <textarea  id="chat-message-input" placeholder="Type message.." name="msg" required></textarea>
+                  
+                      <button id="chat-message-submit" type="submit" class="btn">Send</button>
+                      <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                    </form>
+                  </div> -->
+
+
+
+    
+    <div id="fofo" class="row">
+   
+            <div class="ex1">
+            <div class="panel panel-primary">
+                <div class="panel-heading" id="accordion">
+                    <span class="glyphicon glyphicon-comment"></span> Chat
+                    
+                </div>
+                <div class="ex2" id="conversation">
+                <div class="panel-body">
+                  <ul class="chat">
+                      
+                    <div id="chat">{%for m in messages%}
+                      {% if m.author == request.user %}
+                        <div class="message me"> 
+                         <b>Me</b> <i class="date"> {{m.timestamp.time}} </i>
+                          <br>
+                          {{m.content}}
+                        </div>
+                      {% else %}
+                        <div class="message"> 
+                          <b>{{m.author}}</b> <i class="date"> {{m.timestamp.time}} </i>
+                          <br>
+                          {{m.content}}
+                        </div>
+                      {% endif %}
+                        {%endfor%}</div>                   
+                </ul>
+                </div>
+            </div>
+                <div class="panel-footer">
+                    <div id="chat-input">
+                    <div class="input-group">
+                        <input id="chat-message-input" type="text" class="form-control input-sm" placeholder="Type your message here..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-warning btn-sm" id="chat-message-submit" type="submit">
+                                Send</button>
+                        </span>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+ <!-- <script>
+  function updateScroll(){
+    var element = document.getElementById("conversation");
+    element.scrollTop = element.scrollHeight;
+}
+ </script> -->
+<!-- <script>
+    function openForm() {
+      document.getElementById("myForm").style.display = "block";
+    }
+    
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+    }
+    window.setInterval(function() {
+        var elem = document.getElementById('data');
+        elem.scrollTop = elem.scrollHeight;
+      }, 500);
+    </script> -->
+
+{% endblock %}
+
+{% block domready %}
+
+  var url = 'ws://' + window.location.host +
+            '/ws/chat/room/' + '{{ course.id }}/';
+  var chatSocket = new WebSocket(url);
+
+  chatSocket.onmessage = function(e) {
+    var data = JSON.parse(e.data);
+    var message = data.message;
+
+    var dateOptions = {hour: 'numeric', minute: 'numeric', hour12: true};
+    var datetime = new Date(data.datetime).toLocaleString('en', dateOptions);
+
+    var isMe = data.user === '{{ request.user }}';
+    var source = isMe ? 'me' : 'other';
+    var name = isMe ? 'Me' : data.user;
+
+    var $chat = $('#chat');
+  
+    $chat.append('<div class="message ' + source + ' ">' +
+        '<strong>' + name + '</strong> ' +
+        '<span class="date">' + datetime + '</span><br>' +
+        message +
+        '</div>');
+
+    $chat.scrollTop($chat[0].scrollHeight);
+  };
+
+  chatSocket.onclose = function(e) {
+    console.error('Chat socket closed unexpectedly');
+  };
+
+  var $input = $('#chat-message-input');
+  var $submit = $('#chat-message-submit');
+
+  $submit.click(function() {
+    var message = $input.val();
+    if(message) {
+      // send message in JSON format
+      chatSocket.send(JSON.stringify({'message': message}));
+
+      // clear input
+      $input.val('');
+
+      // return focus
+      $input.focus();
+    }
+  });
+
+  $input.focus();
+  $input.keyup(function(e) {
+    if (e.which === 13) {
+      // submit with enter / return key
+      $submit.click();
+    }
+  });
+
+  $(document).ready(function(){
+    $('#conversation').animate({scrollTop:1000000},800);
+});
+
+{% endblock %}

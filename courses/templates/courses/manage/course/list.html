@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block title %}My courses{% endblock %}
+
+{% block content %}
+
+<section class="bg-light py-5">
+
+  <div class="container">
+
+    <div class="row">
+
+      <div class="col-md-6 mx-auto">
+        {% for course in object_list %}
+        <div class="card">
+
+          <div class="card-header  text-black text-center">
+            <h3>{{ course.title }}</h3>
+            <p>
+              <a href="{% url "course_edit" course.id %}" class="text-decoration-none">
+                <button type="button" class="btn btn-primary">Edit Course</button>
+              </a>
+              <a href="{% url "course_delete" course.id %}" class="text-decoration-none">
+                <button type="button" class="btn btn-danger">Delete Course</button>
+              </a>
+              <a href="{% url "course_module_update" course.id %}" class="text-decoration-none">
+                <button type="button" class="btn btn-info">Edit modules</button>
+              </a>
+              
+              {% if course.modules.count > 0 %}
+              <div class="d-grid gap-2">
+              <a href="{% url "module_content_list" course.modules.first.id %}" class="text-decoration-none">
+                <div class="d-grid gap-2">
+                <button type="button" class="btn btn-secondary">Manage contents</button>
+              </div>
+              </a>
+            </div>
+            {% else %}
+            <h5><div class="alert alert-info text-center" role="alert">
+              edit the modules of of the course to be able to change its content !!
+          </div></h5> 
+              {% endif %}
+            </p>
+          </div> <br>
+          {% empty %}
+          <p>You haven't created any courses yet.</p>
+          {% endfor %}
+          <p>
+          <div class="d-grid gap-2">
+            <a href="{% url "course_create" %}" class="text-decoration-none">
+              <div class="d-grid gap-2">
+                <button type="button" class="btn btn-success">Create new course</button>
+              </div>
+            </a>
+          </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<nav class="navbar " >     
+  <div class="container-fluid">
+
+
+   <h4 style="float:left;"> e-mail : serertei@gmail.com </h4>
+
+<a class="nav-item text-decoration-none" href="{% url 'course_feed' %}">
+  <h4 class="text-dark">Sitemap</h4></button>
+</a>
+<a class="nav-item text-decoration-none" href="{% url 'django.contrib.sitemaps.views.sitemap' %}">
+  <h4 class="text-dark">RSS feed</h4></button>
+</a>
+
+<h4 style="float:right;"> Copyright &copy; E-learnow </h4>
+{% endblock %}

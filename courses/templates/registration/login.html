@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Log-in{% endblock %}
+
+{% block content %}
+
+    <section id="login" class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <div class="card">
+                        <div class="card-body jumbotron">
+                            
+                            {% if form.errors %}
+                            <p>Your username and password didn't match. Please try again.</p>
+                            {% else %}
+                          <h4><b>Please, use the following form to log-in:</b> </h4> 
+                               
+                              <br>
+                               <h5> <b class="text-danger">* you cane use your e-mail instead of username !</b></h5>
+                          
+                            <br>
+                            {% endif %}
+                            <form action="{% url 'login' %}" method="post">
+                                {{ form|crispy }}
+                                {% csrf_token %}
+                                <input type="hidden" name="next" value="{{ next }}" />
+                                <br>                             
+                                  <div class="d-grid gap-2">
+                                    <input type="submit" value="Log-in" class="btn btn-success">
+                                  </div>
+                            </form>
+                            <br>
+                            <div class="d-grid gap-2">
+                               <a href="{% url "password_reset" %}" class="text-decoration-none"><div class="d-grid gap-2">
+                                    <button class="btn btn-danger ">Forgotten your password?</button></div>
+                                </a>                       
+                        </div>       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {% endblock %}
