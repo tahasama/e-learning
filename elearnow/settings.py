@@ -90,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-#WSGI_APPLICATION = 'elearnow.wsgi.application'
+WSGI_APPLICATION = 'elearnow.wsgi.application'
 
 
 # Database
@@ -124,15 +124,15 @@ CHANNEL_LAYERS = {
     },
 }
 
-redis_host = os.environ.get('REDIS_HOST', 'localhost')
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [('redis_host',6379)],
-        },
-    },
-}
+# redis_host = os.environ.get('127.0.0.1')
+# CHANNEL_LAYERS = {
+#     'default': {
+#         'BACKEND': 'channels_redis.core.RedisChannelLayer',
+#         'CONFIG': {
+#             'hosts': [(redis_host,6379)],
+#         },
+#     },
+# }
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
