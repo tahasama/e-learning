@@ -1,0 +1,219 @@
+
+.padding-0{
+    padding-right:1;
+    padding-left:1;
+}
+html, body {
+    margin: 0;
+    height: 100%;
+    margin-left: 0;
+}
+div {
+    margin-top: 0px;
+}
+
+nav {
+    margin-bottom: 10px;
+}
+
+.align-left{ float: left;width:50%; }
+.align-right{ float: right;width:50%; }
+#chat .message {
+    background:#efefef;
+    padding:10px 20px;
+    border-radius:4px;
+    width:auto;
+    display:inline;
+    float:left;
+    margin:10px 10px 0;
+    min-width:320px;
+    clear:both;
+}
+
+#chat .message.me {
+    display:inline;
+    float:right;
+    background:#d2e9d7;
+    color:#2b5a36;
+}
+
+#chat .date {
+    color:rgb(155, 151, 151);
+    font-style:italic;
+    font-size:12px;
+}
+
+
+#chat-input input {
+    width:90%;
+    position:left;
+    float:left;
+    display:inline;
+    margin-left:2%;
+    margin-right:2%;
+    padding-left:1;
+    padding-right:1;
+}
+
+
+
+
+
+
+*
+        {
+            -webkit-border-radius: 0px  !important;
+            -moz-border-radius: 0px  !important;
+            border-radius: 0px !important;
+        }
+        htlm, body
+        {
+            padding: 0;
+            margin: 0;
+            position: relative;
+        }
+        .clearFix
+        {
+            clear:both;
+        }
+        .panel.panel-chat
+        {
+            position: fixed;
+            bottom:0;
+            right:0;
+            max-width: 340px;
+            box-shadow: none;
+            -webkit-box-shadow: none;
+        }
+        .panel.panel-chat *
+        {
+            background: none;
+            border: none;
+        }
+        .panel.panel-chat .panel-heading
+        {
+            background: #4b67a8;
+            border: 1px solid #2e4588;
+            color:#FFF;
+        }
+        .panel.panel-chat .panel-heading a:nth-of-type(1)
+        {
+            text-decoration: none;
+            width: 290px;
+            color:#FFF;
+            font-weight: bold;
+            float:left;
+        }
+        .panel.panel-chat .panel-heading a:nth-of-type(2)
+        {
+            text-decoration: none;
+            max-width: 11px;
+            width: 11px;
+            color:#FFF;
+            float:right;
+        }
+        .panel.panel-chat .panel-body
+        {
+            display: block;
+            padding: 1;
+            margin: 1;
+            max-height: 250px;
+            height: 250px;
+            border-left: 1px solid #b2b2b2;
+            border-right: 1px solid #b2b2b2;
+            background: #EDEFF4;
+            overflow: auto;
+            
+        }
+        .panel.panel-chat .panel-body::-webkit-scrollbar {
+             display: none;
+         }
+        .panel.panel-chat .panel-body .messageMe
+        {
+            border-bottom:1px dotted #b2b2b2;
+        }
+        .panel.panel-chat .panel-body .messageMe img
+         {
+             float:left;
+             max-width: 50px;
+             max-height: 50px;
+         }
+        .panel.panel-chat .panel-body .messageMe span
+        {
+            display: block;
+            float:left;
+            padding: 1px;
+            background: #FFF;
+            min-height: 50px;
+            max-width: 280px;
+            height: 50px;
+            width: 280px;
+            word-break: break-all;
+        }
+        .panel.panel-chat .panel-body .messageHer
+        {
+            border-bottom:1px dotted #b2b2b2;
+        }
+        .panel.panel-chat .panel-body .messageHer img
+        {
+            float:right;
+            max-width: 50px;
+            max-height: 50px;
+        }
+        .panel.panel-chat .panel-body .messageHer span
+        {
+            display: block;
+            float:right;
+            padding: 1px;
+            background: #FFF;
+            min-height: 50px;
+            max-width: 280px;
+            height: 50px;
+            width: 260px;
+            word-break: break-all;
+        }
+        .panel.panel-chat .panel-footer
+        {
+            padding: 1;
+            margin: 1;
+            border: 1px solid #b2b2b2;
+            max-height: 75px;
+            height: 75px;
+        }
+        .panel.panel-chat .panel-footer textarea
+        {
+            margin-bottom: -5px;
+            resize: none;
+            width: 90%;
+            height: 100%;
+        }
+        div.ex1 {
+           
+            width: 450px;
+            height: 550px;
+            
+            position: fixed;
+          }
+          div.ex3 {
+            width: 450px;
+            height: 550px;
+            position: fixed;
+          }
+
+          div.ex2 {
+           
+            
+            overflow: auto;
+            height: 400px;
+            display: flex;
+            flex-direction: column-reverse;
+            
+          }
+
+          .topnav-right {
+            float: right;
+          }
+
+          .container.body-container {
+            padding-bottom: 20px;
+        }
