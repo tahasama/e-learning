@@ -17,8 +17,8 @@ from decouple import config
 import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-#BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
+BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(os.path.join(__file__, os.pardir))))
 
 
 # Quick-start development settings - unsuitable for production
@@ -161,10 +161,10 @@ USE_TZ = True
 #     os.path.join(BASE_DIR, 'static')
 # ]
 
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-STATIC_ROOT= os.path.join(PROJECT_DIR,'staticfiles/')
+#BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles/')
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT,'static/'),
+    os.path.join(BASE_DIR,'static/'),
 )
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
