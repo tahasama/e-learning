@@ -119,7 +119,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [('.herokuapp.com', 6379)],
+            'hosts': [('REDIS_URL', 6379)],
         },
     },
 }
