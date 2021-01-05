@@ -27,9 +27,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [*]
 
 SITE_ID = 1
 # Application definition
@@ -90,7 +90,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'elearnow.wsgi.application'
+#WSGI_APPLICATION = 'elearnow.wsgi.application'
 
 
 # Database
@@ -111,8 +111,8 @@ DATABASES = {
         'PASSWORD': 'postgres',
     }
 }
-DATABASES['default'] = dj_database_url.config(default='')
-db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
+DATABASES['default'] = dj_database_url.config(default='postgres://vncewjagijguis:a764933c328aa7be9c81b06ea81a2856f3b9e8569a54b2854d482d1fd63cd558@ec2-34-196-34-158.compute-1.amazonaws.com:5432/dcoagqm9uq2dnq')
+db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
 CHANNEL_LAYERS = {
