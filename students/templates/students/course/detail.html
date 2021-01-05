@@ -139,7 +139,7 @@
 
 {% block domready %}
 
-  var url = 'ws://' + window.location.host +
+  var url = 'wss://' + window.location.host +
             '/ws/chat/room/' + '{{ course.id }}/';
   var chatSocket = new WebSocket(url);
 
