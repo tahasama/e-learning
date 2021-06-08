@@ -111,7 +111,7 @@ DATABASES = {
         'PASSWORD': 'postgres',
     }
 }
-DATABASES['default'] = dj_database_url.config(default='postgres://vncewjagijguis:a764933c328aa7be9c81b06ea81a2856f3b9e8569a54b2854d482d1fd63cd558@ec2-34-196-34-158.compute-1.amazonaws.com:5432/dcoagqm9uq2dnq')
+DATABASES['default'] = dj_database_url.config(default='postgres://irsyhiintdiubb:e5425eb98e7102e27e527b0a7cd6ce5dbee1565acbc15b6f95c2d98390d882e1@ec2-52-44-46-66.compute-1.amazonaws.com:5432/ddcckjl03sofj2')
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
 
@@ -128,7 +128,7 @@ CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
         'CONFIG': {
-            'hosts': [(os.environ.get('REDIS_HOST', 'localhost'),6379)],
+            'hosts': [(os.environ.get('REDIS_URL', 'localhost'),6379)],
         },
     },
 }
